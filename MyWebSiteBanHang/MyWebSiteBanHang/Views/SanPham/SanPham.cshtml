@@ -1,0 +1,135 @@
+﻿@using MyWebSiteBanHang.Models;
+@using PagedList.Mvc;
+
+
+@model PagedList.IPagedList<SanPham>
+
+
+
+@{
+    ViewBag.Title = "SanPham";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+<div class="col-md-12 product1">
+    <div class="bottom-product row">
+        @foreach (var item in Model.OrderBy(n => n.DonGia))
+        {
+            <div class="col-md-3 bottom-cd simpleCart_shelfItem">
+                <div class="product-at">
+                    <a href="single.html">
+                        <img class="img-responsive" src="@Url.Content("~/Content/image_Laptop/" + item.HinhAnh)" alt="">
+                        <div class="pro-grid">
+                            <span class="buy-in">Đặt mua</span>
+                        </div>
+                    </a>
+                </div>
+                <p class="tun">@item.TenSP</p>
+                <a href="@Url.Action("ThemGioHang", "GioHang", new {@MaSP = item.MaSP, @strURL = Request.Url.ToString()})" class="item_add">
+                    <p class="number item_price"><i></i>@item.DonGia.Value.ToString("#,##")</p>
+                </a>
+            </div>
+        }
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="dlink">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("SanPham", new {page = page, @MaLoaiSP = ViewBag.MaLoaiSP, @MaNSX = ViewBag.MaNSX}))
+</div>
+
+<style>
+    /* Container chính */
+    .col-md-12.product1 {
+        padding: 15px; /* Thêm padding để tạo khoảng trắng xung quanh */
+    }
+
+    /* Bottom-product */
+    .bottom-product.row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Bottom-cd */
+    .bottom-cd {
+        width: calc(25% - 15px); /* 15px là khoảng cách giữa các bottom-cd */
+        margin-bottom: 20px;
+        box-sizing: border-box; /* Đảm bảo padding và border không làm tăng kích thước thực của phần tử */
+    }
+
+    /* Product-at */
+    .product-at {
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Ảnh trong product-at */
+        .product-at img.img-responsive {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover effect cho ảnh */
+        .product-at:hover img.img-responsive {
+            transform: scale(1.1); /* Phóng to ảnh khi hover */
+        }
+
+    /* Pro-grid */
+    .pro-grid {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Màu nền với độ trong suốt */
+        color: white;
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Buy-in */
+    .buy-in {
+        /* Thêm kiểu dáng cho buy-in ở đây */
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Tun (Tên sản phẩm) */
+    .tun {
+        margin-top: 10px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    /* Item_add và number item_price */
+    .item_add,
+    .number.item_price {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        background-color: #eee;
+        padding: 10px;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+        /* Hover effect cho item_add và number item_price */
+        .item_add:hover,
+        .number.item_price:hover {
+            background-color: #ccc; /* Màu nền khi hover */
+        }
+
+    /* Clearfix */
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+</style>
+

@@ -1,0 +1,48 @@
+﻿@using MyWebSiteBanHang.Models;
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "DSSPHetHang";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    //Khởi tạ controk WebGird
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
+}
+@*Thể hiện dữ kiệu thông qua control webGrid*@
+@grid.GetHtml(
+    tableStyle: "divTable",
+    headerStyle: "gridHead",
+    footerStyle: "gridFooter",
+    rowStyle: "gridRow",
+    alternatingRowStyle: "girdAltRow",
+    columns: grid.Columns(
+        grid.Column("MaSP", "Mã Sản Phẩm"),
+        grid.Column("TenSP", "Tên Sản Phẩm"),
+        grid.Column("HinhAnh", "Hình Ảnh", format: p => Html.Raw("<img width=\"200\" height=\"150\" src=\"../Content/image_Laptop/" + p.HinhAnh + "\">")),
+        grid.Column(format: p => Html.ActionLink("Nhập hàng", "NhapHangDon", new { id = p.MaSP }, new { @target = "_blank" }))
+         ))
+<style>
+    .divTable {
+        width: 100%;
+        border: 1px solid #999999;
+    }
+
+        .divTable td {
+            border: 1px solid #999999;
+        }
+
+    .gridHead {
+        background-color: green;
+    }
+
+        .gridHead > th > a {
+            color: #fff;
+        }
+
+    .gridFooter {
+        font-weight: bold;
+    }
+</style>
+<style>
+    .FooterAdmin {
+        display: none;
+    }
+</style>

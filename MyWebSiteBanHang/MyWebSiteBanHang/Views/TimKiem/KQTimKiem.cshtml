@@ -1,0 +1,98 @@
+﻿@using MyWebSiteBanHang.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<SanPham>
+
+
+@{
+    ViewBag.Title = "KQTimKiem";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@*Form tìm kiếm AJax*@
+@using (Ajax.BeginForm("KQTimKiemPartial", "TimKiem", new AjaxOptions { UpdateTargetId = "KQTimKiem", InsertionMode = InsertionMode.Replace }))
+{
+    <div class="search">
+        <input type="text" id="txtTimKiem" value="" name="sTuKhoa" placeholder="Nhập vào tên sản phẩm cần tìm ...." />
+        <input type="submit" id="btnTimKiem" value="Tìm Kiếm" />
+    </div>
+
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div style="clear:both"></div>
+
+
+<div id="KQTimKiem">
+    <div class="col-md-12 product1">
+        <div class="bottom-product row">
+            @foreach (var item in Model.OrderBy(n => n.DonGia))
+            {
+                <div class="col-md-3 bottom-cd simpleCart_shelfItem">
+                    <div class="product-at">
+                        <a href="single.html">
+                            <img class="img-responsive" src="@Url.Content("~/Content/image_Laptop/" + item.HinhAnh)" alt="">
+                            <div class="pro-grid">
+                                <span class="buy-in">Đặt mua</span>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="tun">@item.TenSP</p>
+                    <a href="@Url.Action("ThemGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })" class="item_add">
+                        <p class="number item_price"><i></i>@item.DonGia.Value.ToString("#,##")</p>
+                    </a>
+                </div>
+            }
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+    <div class="dlink">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("KQTimKiem", new { page = page, @sTuKhoa = ViewBag.TuKhoa }))
+    </div>
+
+</div>
+<style>
+    .search {
+        display: flex;
+        align-items: center;
+        width: 302px;
+    }
+
+    #txtTimKiem {
+        width: 460px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-right: 10px;
+    }
+
+    #btnTimKiem {
+        margin-right: -139px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        #btnTimKiem:hover {
+            background-color: #45a049;
+        }
+
+    ::placeholder {
+        color: #777;
+    }
+</style>
+
+

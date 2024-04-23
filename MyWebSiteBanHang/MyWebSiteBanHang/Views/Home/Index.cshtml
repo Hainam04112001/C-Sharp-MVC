@@ -1,0 +1,37 @@
+﻿@using MyWebSiteBanHang.Models;
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+@{
+    IEnumerable<SanPham> lstDTM = (IEnumerable<SanPham>)ViewBag.ListDTM;
+    IEnumerable<SanPham> lstLTM = ViewBag.ListLTM as IEnumerable<SanPham>;
+    IEnumerable<SanPham> lstMTBM = ViewBag.ListMTBM as IEnumerable<SanPham>;
+}
+
+<div class="content-top">
+    <h1>Điện thoại mới nhất</h1>
+    <div class="grid-in">
+        @*Điện thoại*@
+        <div class="container">
+            @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstDTM)
+        </div>
+    </div>
+
+    <h1>Máy tính xách tay mới nhất</h1>
+    <div class="grid-in">
+        @*Điện thoại*@
+        <div class="container">
+            @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", lstLTM)
+        </div>
+    </div>
+
+    <h1>Máy tính bản mới nhất</h1>
+    <div class="grid-in">
+        @*Máy tính bảng*@
+        <div class="container">
+            @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstMTBM)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+﻿@using MyWebSiteBanHang.Models
+
+
+<div class="header-top">
+    <div class="container">
+        <div class="search">
+            @*Tạo form submit về action tìm kiếm*@
+            @using (Html.BeginForm("LayTuKhoaTimKiem", "TimKiem"))
+              {
+                    <input type="text" name="sTuKhoa" placeholder="">
+                    <input type="submit" value="Tìm kiếm" />
+               }
+        </div>
+        <div class="header-left">
+            <ul>
+                @if (Session["TaiKhoan"] != null && Session["TaiKhoan"].ToString() != "")
+                {
+                    ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
+                    <li>Chào @tv.HoTen</li>
+                    @Html.ActionLink("Đăng Xuất","DangXuat","Home")
+                }
+                else
+                {
+                    <li><a id="btnDangNhap" class="lock" href="#">Đăng Nhập</a></li>
+                    <li><a class="lock" href="register.html">Đăng Kí</a></li>
+                }
+                <li>
+
+                </li>
+
+
+            </ul>
+            @*Chèn partial view giỏ hàng vào layout(Tác icon giỏ hàng sáng 1 partial view mới)*@
+            @Html.Action("GioHangPartial","GioHang")
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+
+
+<link href="~/Content/style.css" rel="stylesheet" />
+
+<div>
+    <br />
+
+    @*Tại 1 div bên ngoài chứa div login form*@
+    <div id="popup_login">
+        <div class="login-form" id="login-form">
+            <div style="clear:both; text-align:right;margin-bottom:0;">
+                <span id="close-form" class="btn btn-danger">X</span>
+            </div>
+            <h2>Đăng nhập</h2>
+            <div class="form-info">
+                @using (Ajax.BeginForm("DangNhap","Home", new AjaxOptions { InsertionMode=InsertionMode.Replace,UpdateTargetId="ThongBao"}))
+                 {
+
+                    <input type="text" name="txtTenDangNhap" class="email TaiKhoan" placeholder="Tên đăng nhập" required="">
+                    <input type="password"  name="txtMatKhau"  class="password DangNhap" placeholder="Mật khẩu" required="">
+                    <p><a href="#">Quên mật khẩu?</a></p>
+                    <h3 style="font-weight:bold;color:red; text-align:left" id="ThongBao"> </h3>
+                    <ul class="login-buttons">
+                        <li><input type="submit" value="Đăng nhập" id="btnDangNhap1"></li>
+                        <li><a href="#" class="hvr-sweep-to-left">Đăng kí</a></li>
+                    </ul>
+                 }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .h_nav ul li {
+        display: block;
+        text-align: justify;
+    }
+
+    #close-form {
+        color: white;
+    }
+
+    #login-form {
+        background: #3a3a46;
+        cursor: pointer;
+    }
+
+    /*Css cho phần div popip_loin*/
+    #popup_login {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,.5);
+        z-index: 99;
+        display: none;
+    }
+
+    .search input[type="submit"] {
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        outline: none;
+        top: 0px;
+        right: -28px;
+        background: #c7c7c7;
+        font-size: 1.2em;
+        color: #000;
+        padding: 3px;
+        font-weight: 700;
+    }
+</style>
+
+<script type="text/javascript">
+    //Hiển thị
+    $("#btnDangNhap").click(function () {
+        $("#popup_login").show();
+    });
+    //Ẩn đi
+    $("#close-form").click(AnForm);
+
+    //Định nghĩa function ẩn form
+    function AnForm() {
+        $("#popup_login").hide();
+    }
+
+    //Ví dụ về lấy giá trị từ textbox
+    $("btnDangNhap1").click(function () {
+        var TaiKhoan = $(".TaiKhoan").val();
+        var MatKhau = $(".MatKhau").val();
+
+        /*        alert("Tài khoản:" + TaiKhoan + "\n Mật Khẩu: " + MatKhau);*/
+        if (TaiKhoan == "") {
+            alert("Lỗi");
+            return;
+        }
+    });
+</script>
+
+

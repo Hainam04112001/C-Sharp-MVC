@@ -1,0 +1,126 @@
+﻿@using MyWebSiteBanHang.Models;
+@model IEnumerable<SanPham>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    //Khởi tạ controk WebGird
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
+}
+
+@Html.ActionLink("Thêm sản phẩm", "TaoMoi", null, new { @class = "btn btn-success" })
+<br />
+<br />
+@*Thể hiện dữ kiệu thông qua control webGrid*@
+@grid.GetHtml(
+    tableStyle: "divTable",
+    headerStyle: "gridHead",
+    footerStyle: "gridFooter",
+    rowStyle: "gridRow",
+    alternatingRowStyle: "girdAltRow",
+    columns: grid.Columns(
+        grid.Column("MaSP", "Mã Sản Phẩm"),
+        grid.Column("TenSP", "Tên Sản Phẩm"),
+        grid.Column("HinhAnh", "Hình Ảnh", format: p => Html.Raw("<img width=\"200\" height=\"150\" src=\"../Content/image_Laptop/" + p.HinhAnh + "\">")),
+        grid.Column(format: p => Html.ActionLink("Chỉnh sửa", "ChinhSua", new { id = p.MaSP })),
+        grid.Column(format: p => Html.ActionLink("Xóa", "Xoa", new { id = p.MaSP }))
+         ))
+
+
+<style>
+    .divTable{
+        width:100%;
+        border:1px solid #999999;
+    }
+    .divTable td{
+        border:1px solid #999999;
+    }
+    .gridHead{
+        background-color: green;
+    }
+    .gridHead > th > a{
+        color:#fff;
+    }
+    .gridFooter{
+        font-weight:bold;
+    }
+</style>
+<style>
+    .FooterAdmin{
+        display:none;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<style>
+
+    /* Phong cách cho bảng */
+    th {
+        width: 90px;
+        text-align: left;
+    }
+
+    .gridTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px; /* Thêm khoảng cách giữa bảng và các phần khác trên trang */
+    }
+
+    /* Phong cách cho tiêu đề */
+    .gridHead {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #000;
+    }
+
+    /* Phong cách cho footer */
+    .gridFooter {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    /* Phong cách cho dòng */
+    .gridRow {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #000;
+    }
+
+    /* Phong cách cho dòng xen kẽ */
+    .girdAltRow {
+        background-color: #f9f9f9;
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #000;
+    }
+
+    /* Phong cách cho ảnh */
+    .gridTable img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd; /* Thêm đường viền cho ảnh */
+    }
+</style>*@

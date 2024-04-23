@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MyWebSiteBanHang.Models.SanPham>
+
+@{
+    int iDem = 0;
+    int iSLSanPhamTrenTrang = 6;
+    int iTrang = 1;
+
+}
+
+<div class="col-md-12 product1">
+    <div class="bottom-product row">
+        @foreach (var item in Model.OrderBy(n => n.DonGia))
+        {
+            if (iDem % iSLSanPhamTrenTrang == 0 && iDem !=0)
+            {
+                iTrang++;
+            }
+            <div class="@Url.Content("col-md-3 bottom-cd simpleCart_shelfItem Trang"+iTrang.ToString())">
+                <div class="product-at">
+                    <a href="single.html">
+                        <img class="img-responsive" src="@Url.Content("~/Content/image_Laptop/" + item.HinhAnh)" alt="">
+                        <div class="pro-grid">
+                            <span class="buy-in">Đặt mua</span>
+                        </div>
+                    </a>
+                </div>
+                <p class="tun">@item.TenSP</p>
+                <a href="@Url.Action("ThemGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })" class="item_add">
+                    <p class="number item_price"><i></i>@item.DonGia.Value.ToString("#,##")</p>
+                </a>
+            </div>
+            iDem++;
+                        }
+        <div class="clearfix"></div>
+    </div>
+    <div class="Trang">
+        @for (int i =1; i <= iTrang; i++)
+            {
+                <a class="linkTrang" data-sotrang="@Url.Content("Trang"+i) " href="#">@i</a>
+                }
+    </div>
+</div>
+@*<style>
+    .simpleCart_shelfItem{
+        display:none;
+    }
+    .Trang1{
+        display:block;
+    }
+</style>*@
+
+<script>
+    $('.linkTrang').click(function () {
+        //Cho tất cả các tran ẩn đi
+        $(".simpleCart_shelfItem").hide();
+        //Lấy tra số trang từ thẻ a
+        var soTrang = $(this).attr("data-sotrang");
+        //Gọi những class nào thuốc soTrang đó thì hiển thị
+        $("." + soTrang).show();
+    });
+
+</script>
+
+<style>
+    .simpleCart_shelfItem{
+        display:none;
+    }
+    .Trang1{
+        display:block;
+    }
+</style>

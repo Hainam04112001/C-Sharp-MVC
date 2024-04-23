@@ -1,0 +1,90 @@
+﻿
+   /* Css strong nút đặt hàng*/
+#btnDatHang {
+    background-color: #ff3333; /* Màu nền */
+    color: #fff; /* Màu chữ */
+    margin-top: 10px;
+    padding: 10px 20px; /* Kích thước nút */
+    font-size: 16px; /* Kích thước chữ */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo tròn các góc */
+    cursor: pointer; /* Con trỏ chuột là bàn tay khi di chuyển qua nút */
+}
+
+        #btnDatHang:hover {
+            background-color: #cc0000; /* Màu nền khi hover */
+        }
+
+    /* CSS cho bảng thứ nhất */
+    .table-gio-hang {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table-gio-hang th, .table-gio-hang td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table-gio-hang th {
+            background-color: #f2f2f2;
+        }
+
+        .table-gio-hang img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+
+        .table-gio-hang td.actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .table-gio-hang a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #333;
+            color: #333;
+        }
+
+            .table-gio-hang a:hover {
+                background-color: #333;
+                color: #fff;
+            }
+
+    /* CSS cho bảng thứ hai */
+    .table-thong-tin-mua-hang {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table-thong-tin-mua-hang th, .table-thong-tin-mua-hang td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table-thong-tin-mua-hang th {
+            background-color: #e6e6e6;
+        }
+
+        .table-thong-tin-mua-hang p {
+            margin: 5px 0;
+        }
+
+        .table-thong-tin-mua-hang input[type="text"], .table-thong-tin-mua-hang textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        /* CSS cho các phần tử có id bắt đầu bằng "TB_" trong bảng thứ hai */
+        .table-thong-tin-mua-hang [id^="TB_"] {
+            font-size: 14px;
+        }
+
+
